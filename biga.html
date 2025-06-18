@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTS Game Studio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Stili personalizzati per un'estetica gaming */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Sfondo scuro */
+            color: #e2e8f0; /* Testo chiaro */
+        }
+        .sidebar {
+            width: 250px; /* Larghezza fissa per la sidebar */
+            background-color: #2d3748; /* Sfondo scuro leggermente più chiaro per la sidebar */
+            padding: 1.5rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+            border-radius: 0.5rem; /* Angoli arrotondati per la sidebar */
+            /* Ensure sidebar is sticky on larger screens but fluid on small */
+            position: sticky;
+            top: 2rem; /* Stick to top with some margin */
+            height: fit-content; /* Adjust height based on content */
+        }
+        .main-content {
+            flex-grow: 1; /* Il contenuto principale occupa lo spazio restante */
+            padding: 1.5rem;
+        }
+        .section-block {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 0.75rem; /* Angoli più arrotondati */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem; /* Spazio tra le sezioni */
+        }
+        .btn-primary {
+            background-image: linear-gradient(to right, #6366f1, #a855f7); /* Gradiente viola */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            transition: transform 0.2s, box-shadow 0.2s, background-image 0.3s ease; /* Aggiunto transition per il gradiente */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: 600; /* Testo più spesso */
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+            background-image: linear-gradient(to right, #a855f7, #6366f1); /* Inverti gradiente all'hover */
+        }
+        .link-style {
+            color: #93c5fd; /* Azzurro chiaro per i link */
+            transition: color 0.2s;
+        }
+        .link-style:hover {
+            color: #60a5fa; /* Azzurro più scuro al passaggio del mouse */
+        }
+        .discord-btn {
+            background-color: #7289da; /* Colore Discord */
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .discord-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+            background-color: #677bc4;
+        }
+        .discord-icon {
+            margin-right: 0.5rem;
+            /* SVG semplice per il logo Discord */
+            width: 24px;
+            height: 24px;
+        }
+        /* Regolazioni responsive */
+        @media (max-width: 768px) {
+            .container-layout {
+                flex-direction: column; /* Impila sidebar e contenuto principale su schermi piccoli */
+            }
+            .sidebar {
+                width: 100%; /* La sidebar occupa tutta la larghezza */
+                margin-bottom: 1.5rem; /* Aggiunge spazio sotto la sidebar */
+                position: static; /* Remove sticky on mobile */
+            }
+        }
+        /* Smooth scroll per gli anchor link */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 p-6 shadow-lg rounded-b-lg mb-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-2">KTS Game Studio</h1>
+            <p class="text-xl text-gray-400">Creiamo mondi indimenticabili</p>
+        </div>
+    </header>
+
+    <!-- Area Contenuto Principale -->
+    <div class="container mx-auto flex-grow flex flex-col md:flex-row gap-6 p-4 max-w-7xl container-layout">
+        <!-- Barra Laterale -->
+        <aside class="sidebar flex-shrink-0">
+            <h2 class="text-2xl font-semibold text-white mb-4">Navigazione</h2>
+            <nav>
+                <ul>
+                    <li class="mb-3">
+                        <a href="#home" class="block p-3 rounded-md link-style hover:bg-gray-700 transition duration-200">
+                            Home
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#recent-file" class="block p-3 rounded-md link-style hover:bg-gray-700 transition duration-200">
+                            File più Recente
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="#credits" class="block p-3 rounded-md link-style hover:bg-gray-700 transition duration-200">
+                            Crediti
+                        </a>
+                    </li>
+                    <li class="mb-3">
+                        <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-6">
+                            <svg class="discord-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.22,3.31C18.43,2.44,16.53,1.75,14.5,1.25c-0.89-0.22-1.79-0.34-2.69-0.34c-0.9,0-1.8,0.12-2.69,0.34 C7.47,1.75,5.57,2.44,3.78,3.31C1.65,4.36,0.22,6.4,0,8.71c0,0.11,0.01,0.21,0.02,0.31c0.07,0.76,0.35,1.52,0.77,2.2 C1.53,12.02,2.07,12.72,2.6,13.41c0.77,0.99,1.6,1.96,2.5,2.89c0.75,0.77,1.54,1.48,2.36,2.15c0.59,0.48,1.2,0.92,1.82,1.33 C9.66,20.15,10.6,20.8,11.57,21.3c0.16,0.08,0.32,0.15,0.47,0.22c0.07,0.03,0.14,0.06,0.21,0.08c0.09,0.04,0.17,0.07,0.26,0.1 c0.12,0.04,0.25,0.07,0.37,0.1c0.06,0.01,0.12,0.02,0.18,0.03c0.06,0.01,0.12,0.02,0.18,0.03c0.06,0.01,0.12,0.02,0.18,0.03 c0.07,0.01,0.14,0.01,0.21,0.01c0.07,0,0.14,0,0.21-0.01c0.06-0.01,0.12-0.02,0.18-0.03c0.06-0.01,0.12-0.02,0.18-0.03 c0.12-0.03,0.25-0.06,0.37-0.1c0.09-0.03,0.17-0.06,0.26-0.1c0.07-0.03,0.14-0.06,0.21-0.08c0.15-0.07,0.31-0.14,0.47-0.22 C14.66,20.8,15.6,20.15,16.57,19.65c0.62-0.41,1.23-0.85,1.82-1.33c0.82-0.67,1.61-1.38,2.36-2.15c0.9-0.93,1.73-1.9,2.5-2.89 c0.53-0.69,1.07-1.39,1.5-2.08c0.42-0.68,0.7-1.44,0.77-2.2c0.01-0.1,0.02-0.2,0.02-0.31C21.78,6.4,20.35,4.36,20.22,3.31z M8.13,16.58c-1.11,0-2.02-0.9-2.02-2.02c0-1.11,0.9-2.02,2.02-2.02c1.11,0,2.02,0.9,2.02,2.02 C10.15,15.68,9.25,16.58,8.13,16.58z M15.88,16.58c-1.11,0-2.02-0.9-2.02-2.02c0-1.11,0.9-2.02,2.02-2.02 c1.11,0,2.02,0.9,2.02,2.02C17.9,15.68,17,16.58,15.88,16.58z"/>
+                            </svg>
+                            Unisciti al nostro Discord!
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenuto Principale con Sezioni -->
+        <main class="main-content">
+            <!-- Sezione Home / Il Corridoio -->
+            <section id="home" class="section-block mb-6">
+                <h2 class="text-4xl font-bold text-white mb-4">Il Corridoio</h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                    "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno.
+                </p>
+
+                <!-- Nuova sezione: File più Recente -->
+                <section id="recent-file" class="bg-gray-700 p-6 rounded-lg shadow-md mb-6">
+                    <h3 class="text-3xl font-semibold text-white mb-4">File più Recente</h3>
+                    <p class="text-gray-300 mb-4">
+                        Qui puoi trovare l'ultimo aggiornamento o la versione più recente del nostro gioco, "Il Corridoio". Assicurati di scaricarla per avere l'esperienza completa!
+                    </p>
+                    <a href="https://www.mediafire.com/file/dummy_file_7/Il_Corridoio_Parte_7.zip/file" target="_blank" class="btn-primary flex items-center justify-center max-w-xs mx-auto">
+                        Download Ultima Versione (Parte 7)
+                    </a>
+                </section>
+
+                <h3 class="text-2xl font-semibold text-white mb-4">Scarica "Il Corridoio" - Tutte le Parti</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Link MediaFire -->
+                    <a href="https://www.mediafire.com/file/bxezytt5oheaogw/Il_Corridoio_Beta_1.zip/file">
+                        Download Parte 1
+                    </a>
+                    <a href="https://www.mediafire.com/file/zk960n5i00a88de/Il_Corridoio_Beta_2.zip/file">
+                        Download Parte 2
+                    </a>
+                    <a href=https://www.mediafire.com/file/6ducg7prxmffvog/Il_corridoio_beta_3.zip/file">
+                        Download Parte 3
+                    </a>
+                    <a href="https://www.mediafire.com/file/h5pdxfb3cvqlh31/Il_Corridoio_Beta_4.zip/file">
+                        Download Parte 4
+                    </a>
+                    <a href="https://www.mediafire.com/file/431hw01lvaqz0zl/Il_Corridoio_Beta_5.zip/file">
+                        Download Parte 5
+                    </a>
+                    <a href="https://www.mediafire.com/file/wky7z8k93zw0udn/Il_Corridoio_Beta_6.1.zip/file">
+                        Download Parte 6
+                    </a>
+                    <a href="https://www.mediafire.com/file/jkiecycgq5uqebd/Il_Corridoio_Beta_7.1.zip/file">
+                        Download Parte 7
+                    </a>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-white mt-8 mb-4">Galleria Immagini</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384836721677701210/image.png?ex=6853e133&is=68528fb3&hm=cdfc6d74f75db444c06ce4578ce8205907bd97da776bfb79daa6f3cfa619d61c&">
+                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384836997549658194/image.png?ex=6853e175&is=68528ff5&hm=8faca1a2e229fe3abd17bd58eb9d28571cedda455431dad43b6a4d1c87b9b957&">
+                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384837193285238976/image.png?ex=6853e1a3&is=68529023&hm=4bf9afcbca653ce8d1a5689b3cb617c74f43d7ec776af2dc4c6e08f9501ab8ce&">
+                </div>
+            </section>
+
+            <!-- Sezione Crediti -->
+            <section id="credits" class="section-block mt-6">
+                <h2 class="text-4xl font-bold text-white mb-4">Crediti del Team</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-lg">
+                    <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-semibold text-white mb-2">Kibrisky</h3>
+                        <p class="text-gray-300"><strong>Ruoli:</strong> Admin, Editor Video, Tester, Sito.</p>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-semibold text-white mb-2">tasso_violatw</h3>
+                        <p class="text-gray-300"><strong>Ruoli:</strong> Capo, Developer.</p>
+                    </div>
+                    <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+                        <h3 class="text-3xl font-semibold text-white mb-2">samux496</h3>
+                        <p class="text-gray-300"><strong>Ruoli:</strong> Idee, Tester.</p>
+                    </div>
+                    <!-- Aggiungi altri crediti se necessario -->
+                </div>
+            </section>
+
+            <!-- Sezione "Chi Siamo" o "Contatti" aggiuntiva (opzionale) -->
+            <section class="section-block mt-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-4">La Nostra Missione</h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-6">
+                    Noi di KTS Game Studio siamo appassionati nel creare esperienze di gioco immersive e indimenticabili. Il nostro obiettivo è spingere i confini della narrazione e del gameplay, offrendo ai giocatori avventure uniche ed emozionanti.
+                </p>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Rimani aggiornato sulle nostre prossime uscite seguendoci sul nostro server Discord!
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 p-6 text-center text-gray-500 mt-6 rounded-t-lg">
+        <p>&copy; 2025 KTS Game Studio. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>
