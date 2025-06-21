@@ -4,49 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KTS Game Studio</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cinzel per i titoli, Inter per il corpo del testo -->
+    <!-- Google Fonts: Cinzel for titles, Inter for body text -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Stili personalizzati per un'estetica elegante nero e oro */
+        /* Custom styles for an elegant black and gold aesthetic */
         body {
             font-family: 'Inter', sans-serif;
-            color: #f0d9a6; /* Oro tenue per il testo generale */
-            /* Rimosso 'overflow: hidden;' per consentire lo scrolling */
+            color: #f0d9a6; /* Soft gold for general text */
             margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Assicura che il body sia almeno alto come la viewport */
-            position: relative; /* Necessario per posizionare il canvas se non fixed */
+            min-height: 100vh; /* Ensures body is at least viewport height */
+            position: relative; /* Necessary for positioning the canvas if not fixed */
+            background-color: #0a0a0a; /* Base background color for the body */
         }
         
         h1, h2, h3 {
-            font-family: 'Cinzel', serif; /* Font elegante per i titoli */
+            font-family: 'Cinzel', serif; /* Elegant font for titles */
             font-weight: 700;
-            color: #d4af37; /* Oro più vibrante per i titoli */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Leggera ombra per i titoli */
+            color: #d4af37; /* More vibrant gold for titles */
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Slight shadow for titles */
         }
         .sidebar {
             width: 250px;
-            background-color: #1a1a1a; /* Sfondo nero più chiaro per la sidebar */
+            background-color: #1a1a1a; /* Lighter black background for the sidebar */
             padding: 1.5rem;
             box-shadow: 4px 0 15px rgba(0,0,0,0.4);
             border-radius: 0.75rem;
             position: sticky;
             top: 2rem;
             height: fit-content;
-            border: 1px solid #333; /* Bordo sottile */
-            transition: all 0.3s ease-in-out; /* Animazione per la sidebar */
-            z-index: 10; /* Assicura che la sidebar sia sopra il canvas */
+            border: 1px solid #333; /* Thin border */
+            transition: all 0.3s ease-in-out; /* Sidebar animation */
+            z-index: 10; /* Ensures sidebar is above the canvas */
         }
         .sidebar:hover {
-            box-shadow: 4px 0 25px rgba(212, 175, 55, 0.2); /* Ombra dorata all'hover */
+            box-shadow: 4px 0 25px rgba(212, 175, 55, 0.2); /* Golden shadow on hover */
         }
         .main-content {
             flex-grow: 1;
             padding: 1.5rem;
-            z-index: 5; /* Assicura che il contenuto sia sopra il canvas */
+            z-index: 5; /* Ensures content is above the canvas */
         }
         .section-block {
             background-color: #1a1a1a;
@@ -55,47 +55,47 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
             border: 1px solid #333;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animazione per i blocchi */
-            z-index: 5; /* Assicura che i blocchi siano sopra il canvas */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Blocks animation */
+            z-index: 5; /* Ensures blocks are above the canvas */
         }
         .section-block:hover {
-            transform: translateY(-5px); /* Leggero sollevamento all'hover */
+            transform: translateY(-5px); /* Slight lift on hover */
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .btn-primary {
-            background-image: linear-gradient(to right, #d4af37, #f0d9a6); /* Gradiente oro */
-            color: #1a1a1a; /* Testo scuro sul pulsante oro */
+            background-image: linear-gradient(to right, #d4af37, #f0d9a6); /* Gold gradient */
+            color: #1a1a1a; /* Dark text on gold button */
             padding: 0.9rem 2.2rem;
             border-radius: 0.6rem;
             transition: all 0.3s ease-in-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: 700; /* Testo più audace */
+            font-weight: 700; /* Bolder text */
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            letter-spacing: 0.05em; /* Spaziatura maggiore */
-            border: none; /* Rimuove il bordo predefinito */
+            letter-spacing: 0.05em; /* Increased spacing */
+            border: none; /* Removes default border */
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02); /* Effetto hover più marcato */
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); /* Ombra dorata */
-            background-image: linear-gradient(to right, #f0d9a6, #d4af37); /* Inverti gradiente all'hover */
+            transform: translateY(-3px) scale(1.02); /* More pronounced hover effect */
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); /* Gold shadow */
+            background-image: linear-gradient(to right, #f0d9a6, #d4af37); /* Invert gradient on hover */
         }
         .link-style {
-            color: #f0d9a6; /* Oro tenue per i link della sidebar */
+            color: #f0d9a6; /* Soft gold for sidebar links */
             transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
             text-decoration: none;
             font-weight: 500;
         }
         .link-style:hover {
-            color: #d4af37; /* Oro più vibrante all'hover */
-            background-color: #2a2a2a; /* Sfondo scuro leggero all'hover */
+            color: #d4af37; /* More vibrant gold on hover */
+            background-color: #2a2a2a; /* Light dark background on hover */
             border-radius: 0.5rem;
         }
         .discord-btn {
-            background-color: #5865f2; /* Colore Discord */
+            background-color: #36393f; /* Dark grey for Discord button */
             color: white;
             padding: 1.2rem 2.5rem;
             border-radius: 0.75rem;
@@ -110,34 +110,25 @@
         }
         .discord-btn:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.4); /* Ombra color Discord */
-            background-color: #4f5cd8;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* Darker shadow */
+            background-color: #2f3136; /* Even darker grey on hover */
         }
         .discord-icon {
             margin-right: 0.75rem;
             width: 28px;
             height: 28px;
         }
-        .gallery-image {
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
-            border: 1px solid #333; /* Bordo sottile */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .gallery-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px #d4af37; /* Ombra più forte e bagliore oro */
-            border-color: #d4af37; /* Bordo oro all'hover */
-        }
-        /* Stili per la sezione collassabile */
+       
+        /* Styles for the collapsible section */
         details summary {
             cursor: pointer;
             list-style: none;
             display: flex;
             align-items: center;
             font-weight: 600;
-            color: #d4af37; /* Oro vibrante */
+            color: #d4af37; /* Vibrant gold */
             padding: 0.8rem 1.2rem;
-            background-color: #2a2a2a; /* Sfondo scuro per il summary */
+            background-color: #2a2a2a; /* Dark background for the summary */
             border-radius: 0.6rem;
             margin-bottom: 0.6rem;
             transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
@@ -151,14 +142,14 @@
             display: none;
         }
         details summary::before {
-            content: '\25B6'; /* Triangolo per indicare l'espansione */
+            content: '\25B6'; /* Triangle to indicate expansion */
             font-size: 1.2rem;
             margin-right: 0.75rem;
             transition: transform 0.2s;
             color: #d4af37;
         }
         details[open] summary::before {
-            content: '\25BC'; /* Triangolo giù quando aperto */
+            content: '\25BC'; /* Downward triangle when open */
             transform: rotate(0deg);
         }
         details[open] summary {
@@ -171,7 +162,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             padding: 1.5rem;
-            background-color: #2a2a2a; /* Sfondo più scuro per il contenuto collassabile */
+            background-color: #2a2a2a; /* Darker background for collapsible content */
             border-top: 1px solid #3a3a3a;
             border-bottom-left-radius: 0.75rem;
             border-bottom-right-radius: 0.75rem;
@@ -182,18 +173,70 @@
             font-size: 0.9rem;
         }
 
-        /* Canvas per lo sfondo dinamico */
+        /* Canvas for dynamic background */
         #dynamic-background {
-            position: fixed; /* Mantiene il canvas fisso sullo sfondo */
+            position: fixed; /* Keeps the canvas fixed in the background */
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1; /* Posiziona dietro il contenuto */
-            background-color: #0a0a0a; /* Colore di base per lo sfondo */
+            z-index: -1; /* Positions behind content */
+            background-color: #0a0a0a; /* Base background color for the canvas */
         }
 
-        /* Regolazioni responsive */
+        /* Overlay for non-computer devices */
+        .unsupported-device-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #f0d9a6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 100; /* Ensures it's above everything */
+        }
+        .unsupported-device-overlay h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .unsupported-device-overlay .btn-primary {
+            margin-top: 1rem;
+            padding: 0.7rem 1.8rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1023px) { /* Apply overlay for tablets and mobile devices */
+            #desktop-content {
+                display: none;
+            }
+            .unsupported-device-overlay {
+                display: flex; /* Show the overlay */
+            }
+        }
+
+        @media (min-width: 1024px) { /* Hide overlay for desktop */
+            .unsupported-device-overlay {
+                display: none;
+            }
+            #desktop-content {
+                display: flex; /* Show desktop content */
+            }
+            .container-layout {
+                flex-direction: row;
+            }
+            .sidebar {
+                width: 250px;
+                position: sticky;
+            }
+        }
+
+        /* Adjustments for column layout on smaller screens */
         @media (max-width: 768px) {
             .container-layout {
                 flex-direction: column;
@@ -221,290 +264,300 @@
             h2 {
                 font-size: 2.5rem;
             }
+            .unsupported-device-overlay h2 {
+                font-size: 1.8rem; /* Reduce text size for mobile */
+            }
         }
-        /* Smooth scroll per gli anchor link */
+        /* Smooth scroll for anchor links */
         html {
             scroll-behavior: smooth;
         }
     </style>
 </head>
 <body class="flex flex-col">
-    <!-- Canvas per lo sfondo dinamico -->
+    <!-- Canvas for the dynamic background -->
     <canvas id="dynamic-background"></canvas>
 
-    <!-- Header -->
-    <header class="bg-gray-900 p-8 shadow-2xl rounded-b-xl mb-8 border-b-2 border-yellow-700 relative z-10">
-        <div class="container mx-auto text-center">
-            <h1 class="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500 mb-3 tracking-wide">KTS Game Studio</h1>
-            <p class="text-2xl text-gray-400 font-light">Creiamo mondi indimenticabili</p>
-        </div>
-    </header>
-
-    <!-- Area Contenuto Principale -->
-    <div class="container mx-auto flex-grow flex flex-col md:flex-row gap-8 p-4 max-w-7xl container-layout relative z-10">
-        <!-- Barra Laterale -->
-        <aside class="sidebar flex-shrink-0">
-            <h2 class="text-3xl font-bold text-yellow-500 mb-6 tracking-wide">Navigazione</h2>
-            <nav>
-                <ul>
-                    <li class="mb-4">
-                        <a href="#home" class="block p-3 rounded-md link-style">
-                            Home
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#latest-version" class="block p-3 rounded-md link-style">
-                            Installa la versione più recente
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#all-versions" class="block p-3 rounded-md link-style">
-                            Tutte le Versioni
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="#credits" class="block p-3 rounded-md link-style">
-                            Crediti
-                        </a>
-                    </li>
-                    <li class="mb-4">
-                        <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-8">
-                            <!-- Nuovo logo Discord -->
-                            <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord Logo" class="discord-icon">
-                            Unisciti al nostro Discord!
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Contenuto Principale con Sezioni -->
-        <main class="main-content">
-            <!-- Sezione Home / Il Corridoio Descrizione -->
-            <section id="home" class="section-block">
-                <h2 class="text-4xl font-bold mb-6">Il Corridoio</h2>
-                <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
-                    "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno.
-                </p>
-
-                <!-- Sezione: Installa la versione più recente -->
-                <section id="latest-version" class="bg-gray-800 p-8 rounded-lg shadow-xl mb-8 text-center border-2 border-yellow-700">
-                    <h3 class="text-3xl font-bold text-yellow-500 mb-5 tracking-wide">Installa la Versione più Recente!</h3>
-                    <p class="text-f0d9a6 text-lg mb-8">
-                        Non perdere l'ultima e più completa esperienza di gioco. Scarica subito la versione 7.2!
-                    </p>
-                    <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-center text-xl px-10 py-5">
-                        Download Il Corridoio 7.2
-                    </a>
-                </section>
-
-                <!-- Sezione: Tutte le Versioni (con collassabile per le vecchie) -->
-                <section id="all-versions" class="section-block">
-                    <h3 class="text-2xl font-bold mb-4">Versioni Disponibili</h3>
-                    
-                    <details>
-                        <summary>Versioni Più Vecchie</summary>
-                        <div class="old-versions-grid">
-                            <!-- Link MediaFire per le versioni vecchie -->
-                            <a href="https://www.mediafire.com/file/bxezytt5oheaogw/Il_Corridoio_Beta_1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 1
-                            </a>
-                            <a href="https://www.mediafire.com/file/zk960n5i00a88de/Il_Corridoio_Beta_2.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 2
-                            </a>
-                            <a href="https://www.mediafire.com/file/6ducg7prxmffvog/Il_corridoio_beta_3.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 3
-                            </a>
-                            <a href="https://www.mediafire.com/file/h5pdxfb3cvqlh31/Il_Corridoio_Beta_4.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 4
-                            </a>
-                            <a href="https://www.mediafire.com/file/431hw01lvaqz0zl/Il_Corridoio_Beta_5.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 5
-                            </a>
-                            <a href="https://www.mediafire.com/file/wky7z8k93zw0udn/Il_Corridoio_Beta_6.1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 6.1
-                            </a>
-                            <a href="https://www.mediafire.com/file/d8zrc6ny4ohbojl/Il_Corridoio_Beta_6.2.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 6.2
-                            </a>
-                            <a href="https://www.mediafire.com/file/jkiecycgq5uqebd/Il_Corridoio_Beta_7.1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 7.1
-                            </a>
-                        </div>
-                    </details>
-                </section>
-
-                <h3 class="text-2xl font-bold mt-8 mb-4">Galleria Immagini</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384836721677701210/image.png?ex=6853e133&is=68528fb3&hm=cdfc6d74f75db444c06ce4578ce8205907bd97da776bfb79daa6f3cfa619d61c&" alt="Screenshot del gioco 1" class="w-full h-auto object-cover rounded-lg shadow-lg gallery-image">
-                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384836997549658194/image.png?ex=6853e175&is=68528ff5&hm=8faca1a2e229fe3abd17bd58eb9d28571cedda455431dad43b6a4d1c87b9b957&" alt="Screenshot del gioco 2" class="w-full h-auto object-cover rounded-lg shadow-lg gallery-image">
-                    <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1384837193285238976/image.png?ex=6853e1a3&is=68529023&hm=4bf9afcbca653ce8d1a5689b3cb617c74f43d7ec776af2dc4c6e08f9501ab8ce&" alt="Screenshot del gioco 3" class="w-full h-auto object-cover rounded-lg shadow-lg gallery-image">
-                </div>
-            </section>
-
-            <!-- Sezione Crediti -->
-            <section id="credits" class="section-block">
-                <h2 class="text-4xl font-bold mb-6">Crediti del Team</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
-                    <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
-                        <h3 class="text-3xl font-bold text-yellow-500 mb-3">Kibrisky</h3>
-                        <p class="text-f0d9a6"><strong>Ruoli:</strong> Admin, Editor Video, Tester, Sito.</p>
-                    </div>
-                    <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
-                        <h3 class="text-3xl font-bold text-yellow-500 mb-3">tasso_violatw</h3>
-                        <p class="text-f0d9a6"><strong>Ruoli:</strong> Capo, Developer.</p>
-                    </div>
-                    <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
-                        <h3 class="text-3xl font-bold text-yellow-500 mb-3">samux496</h3>
-                        <p class="text-f0d9a6"><strong>Ruoli:</strong> Idee, Tester.</p>
-                    </div>
-                    <!-- Aggiungi altri crediti se necessario -->
-                </div>
-            </section>
-
-            <!-- Sezione "La Nostra Missione" -->
-            <section class="section-block text-center">
-                <h2 class="text-4xl font-bold mb-6">La Nostra Missione</h2>
-                <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
-                    Noi di KTS Game Studio siamo appassionati nel creare esperienze di gioco immersive e indimenticabili. Il nostro obiettivo è spingere i confini della narrazione e del gameplay, offrendo ai giocatori avventure uniche ed emozionanti.
-                </p>
-                <p class="text-f0d9a6 text-lg leading-relaxed">
-                    Rimani aggiornato sulle nostre prossime uscite seguendoci sul nostro server Discord!
-                </p>
-            </section>
-        </main>
+    <!-- Overlay screen for non-computer devices -->
+    <div class="unsupported-device-overlay" id="unsupported-device-overlay">
+        <h2>Il tuo dispositivo non è supportato</h2>
+        <p class="text-xl">Per un'esperienza ottimale, ti consigliamo di visitare il sito da un computer desktop.</p>
+        <button id="proceed-anyway" class="btn-primary">Vedi Comunque</button>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 p-8 text-center text-gray-500 rounded-t-xl mt-8 border-t-2 border-yellow-700 relative z-10">
-        <p>&copy; 2025 KTS Game Studio. Tutti i diritti riservati.</p>
-    </footer>
+    <!-- Main site content (visible only on desktop or after clicking "Proceed Anyway") -->
+    <div id="desktop-content" class="min-h-screen flex flex-col">
+        <!-- Header section -->
+        <header class="bg-gray-900 p-8 shadow-2xl rounded-b-xl mb-8 border-b-2 border-yellow-700 relative z-10">
+            <div class="container mx-auto text-center">
+                <h1 class="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500 mb-3 tracking-wide">KTS Game Studio</h1>
+                <p class="text-2xl text-gray-400 font-light">Creiamo mondi indimenticabili</p>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <div class="container mx-auto flex-grow flex flex-col md:flex-row gap-8 p-4 max-w-7xl container-layout relative z-10">
+            <!-- Sidebar navigation -->
+            <aside class="sidebar flex-shrink-0">
+                <h2 class="text-3xl font-bold text-yellow-500 mb-6 tracking-wide">Navigazione</h2>
+                <nav>
+                    <ul>
+                        <li class="mb-4">
+                            <a href="#home" class="block p-3 rounded-md link-style">
+                                Home
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#latest-version" class="block p-3 rounded-md link-style">
+                                Installa la versione più recente
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#all-versions" class="block p-3 rounded-md link-style">
+                                Tutte le Versioni
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="#credits" class="block p-3 rounded-md link-style">
+                                Crediti
+                            </a>
+                        </li>
+                        <li class="mb-4">
+                            <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-8">
+                                <!-- Discord logo image -->
+                                <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord Logo" class="discord-icon">
+                                Unisciti al nostro Discord!
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main content with sections -->
+            <main class="main-content">
+                <!-- Home section / "Il Corridoio" game description -->
+                <section id="home" class="section-block">
+                    <h2 class="text-4xl font-bold mb-6">Il Corridoio</h2>
+                    <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
+                        "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno.
+                    </p>
+
+                    <!-- Latest Version section -->
+                    <section id="latest-version" class="bg-gray-800 p-8 rounded-lg shadow-xl mb-8 text-center border-2 border-yellow-700">
+                        <h3 class="text-3xl font-bold text-yellow-500 mb-5 tracking-wide">Installa la Versione più Recente!</h3>
+                        <p class="text-f0d9a6 text-lg mb-8">
+                            Non perdere l'ultima e più completa esperienza di gioco. Scarica subito la versione 7.2!
+                        </p>
+                        <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-center text-xl px-10 py-5">
+                            Download Il Corridoio 7.2
+                        </a>
+                    </section>
+
+                    <!-- All Versions section (with collapsible older versions) -->
+                    <section id="all-versions" class="section-block">
+                        <h3 class="text-2xl font-bold mb-4">Versioni Disponibili</h3>
+                        
+                        <details>
+                            <summary>Versioni Più Vecchie</summary>
+                            <div class="old-versions-grid">
+                                <!-- MediaFire links for older versions -->
+                                <a href="https://www.mediafire.com/file/bxezytt5oheaogw/Il_Corridoio_Beta_1.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 1
+                                </a>
+                                <a href="https://www.mediafire.com/file/zk960n5i00a88de/Il_Corridoio_Beta_2.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 2
+                                </a>
+                                <a href="https://www.mediafire.com/file/6ducg7prxmffvog/Il_corridoio_beta_3.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 3
+                                </a>
+                                <a href="https://www.mediafire.com/file/h5pdxfb3cvqlh31/Il_Corridoio_Beta_4.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 4
+                                </a>
+                                <a href="https://www.mediafire.com/file/431hw01lvaqz0zl/Il_Corridoio_Beta_5.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 5
+                                </a>
+                                <a href="https://www.mediafire.com/file/wky7z8k93zw0udn/Il_Corridoio_Beta_6.1.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 6.1
+                                </a>
+                                <a href="https://www.mediafire.com/file/d8zrc6ny4ohbojl/Il_Corridoio_Beta_6.2.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 6.2
+                                </a>
+                                <a href="https://www.mediafire.com/file/jkiecycgq5uqebd/Il_Corridoio_Beta_7.1.zip/file" target="_blank" class="btn-primary">
+                                    Download Beta 7.1
+                                </a>
+                            </div>
+                        </details>
+                    </section>
+                </section>
+
+                <!-- Credits section -->
+                <section id="credits" class="section-block">
+                    <h2 class="text-4xl font-bold mb-6">Crediti del Team</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">Kibrisky</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Admin, Editor Video, Tester, Sito.</p>
+                        </div>
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">tasso_violatw</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Capo, Developer.</p>
+                        </div>
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">samux496</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Idee, Tester.</p>
+                        </div>
+                        <!-- Add other credits as needed -->
+                    </div>
+                </section>
+
+                <!-- "Our Mission" section -->
+                <section class="section-block text-center">
+                    <h2 class="text-4xl font-bold mb-6">La Nostra Missione</h2>
+                    <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
+                        Noi di KTS Game Studio siamo appassionati nel creare esperienze di gioco immersive e indimenticabili. Il nostro obiettivo è spingere i confini della narrazione e del gameplay, offrendo ai giocatori avventure uniche ed emozionanti.
+                    </p>
+                    <p class="text-f0d9a6 text-lg leading-relaxed">
+                        Rimani aggiornato sulle nostre prossime uscite seguendoci sul nostro server Discord!
+                    </p>
+                </section>
+            </main>
+        </div>
+
+        <!-- Footer section -->
+        <footer class="bg-gray-900 p-8 text-center text-gray-500 rounded-t-xl mt-8 border-t-2 border-yellow-700 relative z-10">
+            <p>&copy; 2025 KTS Game Studio. Tutti i diritti riservati.</p>
+        </footer>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Get the canvas element and its 2D rendering context
             const canvas = document.getElementById('dynamic-background');
             const ctx = canvas.getContext('2d');
 
-            let width, height;
-            const points = [];
-            const triangleSize = 80; // Dimensione dei triangoli (lato)
-            const waveAmplitude = 10; // Ampiezza dell'onda
-            const waveSpeed = 0.005; // Velocità dell'onda
-            const mouseInfluenceRadius = 150; // Raggio di influenza del mouse
-            const mouseAttractionStrength = 0.05; // Forza di attrazione/repulsione del mouse
+            let width, height; // Variables for canvas dimensions
+            const points = []; // Array to store points for the triangular background
+            const triangleSize = 80; // Size of the triangles (side length)
+            const waveAmplitude = 10; // Amplitude of the wave effect
+            const waveSpeed = 0.005; // Speed of the wave animation
+            const mouseInfluenceRadius = 150; // Radius of mouse influence for point interaction
+            const mouseAttractionStrength = 0.05; // Strength of mouse attraction/repulsion
 
-            let mouseX = -9999;
-            let mouseY = -9999;
+            let mouseX = -9999; // Initial mouse X coordinate (off-screen)
+            let mouseY = -9999; // Initial mouse Y coordinate (off-screen)
 
-            // Funzione per impostare la dimensione del canvas
+            /**
+             * Sets the canvas size to match the window dimensions and reinitializes points.
+             */
             function setCanvasSize() {
                 width = window.innerWidth;
                 height = window.innerHeight;
                 canvas.width = width;
                 canvas.height = height;
-                initPoints(); // Reinizializza i punti al ridimensionamento
+                initPoints(); // Reinitialize points when canvas size changes
             }
 
-            // Inizializza i punti per lo sfondo triangolare
+            /**
+             * Initializes the points for the triangular background grid.
+             */
             function initPoints() {
-                points.length = 0; // Pulisce i punti esistenti
-                // Aumenta leggermente il numero di righe e colonne per coprire meglio i bordi
+                points.length = 0; // Clear existing points
+                // Calculate rows and columns, adding extra for better edge coverage
                 const rows = Math.ceil(height / (triangleSize * Math.sqrt(3) / 2)) + 3; 
                 const cols = Math.ceil(width / triangleSize) + 3;
 
                 for (let r = 0; r < rows; r++) {
                     for (let c = 0; c < cols; c++) {
-                        const xOffset = r % 2 === 0 ? 0 : triangleSize / 2; // Offset per griglia esagonale/triangolare
+                        // Offset for hexagonal/triangular grid pattern
+                        const xOffset = r % 2 === 0 ? 0 : triangleSize / 2; 
                         const x = c * triangleSize + xOffset;
                         const y = r * (triangleSize * Math.sqrt(3) / 2);
                         points.push({
                             x: x,
                             y: y,
-                            originalY: y,
-                            vx: 0, // Velocità per l'interazione del mouse
-                            vy: 0  // Velocità per l'interazione del mouse
+                            originalY: y, // Store original Y for wave animation reset
+                            vx: 0, // Velocity for mouse interaction
+                            vy: 0  // Velocity for mouse interaction
                         });
                     }
                 }
             }
 
-            // Funzione per disegnare lo sfondo
+            /**
+             * Draws the dynamic background with animated triangles and mouse interaction.
+             * @param {number} time - The current time in milliseconds, passed by requestAnimationFrame.
+             */
             function draw(time) {
-                ctx.clearRect(0, 0, width, height); // Pulisce il canvas
-                ctx.fillStyle = 'rgba(10, 10, 10, 1)'; // Colore di sfondo scuro
-                ctx.fillRect(0, 0, width, height);
+                ctx.clearRect(0, 0, width, height); // Clear the canvas
+                ctx.fillStyle = 'rgba(10, 10, 10, 1)'; // Dark background color
+                ctx.fillRect(0, 0, width, height); // Fill background
 
-                // Aggiorna e disegna i punti
+                // Update and draw points
                 points.forEach(point => {
-                    // Animazione a onda
+                    // Wave animation effect
                     point.y = point.originalY + Math.sin(time * waveSpeed + point.x * 0.01) * waveAmplitude;
 
-                    // Interazione del mouse
+                    // Mouse interaction logic
                     const dx = mouseX - point.x;
                     const dy = mouseY - point.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    point.currentStrokeStyle = 'rgba(255, 255, 255, 0.08)'; // Colore di default
-                    point.currentLineWidth = 1;
+                    point.currentStrokeStyle = 'rgba(255, 255, 255, 0.08)'; // Default line color
+                    point.currentLineWidth = 1; // Default line width
 
                     if (distance < mouseInfluenceRadius) {
                         const force = -mouseAttractionStrength * (mouseInfluenceRadius - distance) / mouseInfluenceRadius;
                         point.vx += force * dx / distance;
                         point.vy += force * dy / distance;
 
-                        // Rende le linee più visibili vicino al mouse
-                        const alpha = 0.08 + (1 - distance / mouseInfluenceRadius) * 0.2; // Aumenta l'opacità
-                        point.currentStrokeStyle = `rgba(212, 175, 55, ${alpha})`; // Oro vibrante quando vicino
-                        point.currentLineWidth = 1 + (1 - distance / mouseInfluenceRadius) * 2; // Aumenta la larghezza della linea
+                        // Make lines more visible near the mouse
+                        const alpha = 0.08 + (1 - distance / mouseInfluenceRadius) * 0.2; // Increase opacity
+                        point.currentStrokeStyle = `rgba(212, 175, 55, ${alpha})`; // Vibrant gold when near
+                        point.currentLineWidth = 1 + (1 - distance / mouseInfluenceRadius) * 2; // Increase line width
                     } 
 
-                    // Applica la velocità e il "freno"
+                    // Apply velocity and friction
                     point.x += point.vx;
                     point.y += point.vy;
-                    point.vx *= 0.95; // Attrito
-                    point.vy *= 0.95; // Attrito
+                    point.vx *= 0.95; // Apply friction
+                    point.vy *= 0.95; // Apply friction
                 });
 
-                // Disegna i triangoli
-                const h = triangleSize * Math.sqrt(3) / 2; // Altezza del triangolo equilatero
+                // Draw triangles based on the updated points
+                const h = triangleSize * Math.sqrt(3) / 2; // Height of an equilateral triangle
 
                 for (let r = 0; r < Math.ceil(height / h) + 2; r++) {
                     for (let c = 0; c < Math.ceil(width / triangleSize) + 2; c++) {
-                        const idxBase = r * (Math.ceil(width / triangleSize) + 3); // Indice di base per la riga
+                        const idxBase = r * (Math.ceil(width / triangleSize) + 3); // Base index for the current row
                         
+                        // Get the four points forming the potential triangles
                         const p1 = points[idxBase + c];
                         const p2 = points[idxBase + c + 1];
-                        const p3 = points[idxBase + c + (Math.ceil(width / triangleSize) + 3)]; // Punto nella riga successiva
-                        const p4 = points[idxBase + c + 1 + (Math.ceil(width / triangleSize) + 3)]; // Punto nella riga successiva + 1
+                        const p3 = points[idxBase + c + (Math.ceil(width / triangleSize) + 3)]; // Point in the next row
+                        const p4 = points[idxBase + c + 1 + (Math.ceil(width / triangleSize) + 3)]; // Point in the next row + 1
 
-                        if (!p1 || !p2 || !p3 || !p4) continue;
+                        if (!p1 || !p2 || !p3 || !p4) continue; // Skip if any point is undefined
 
-                        // Per ogni punto, determina lo stile della linea basato sulla sua vicinanza al mouse
-                        // Se si usano stili individuali per le linee, devono essere calcolati per ogni linea, non per ogni punto.
-                        // Qui, per semplicità e coerenza, useremo lo stile del punto di partenza della linea,
-                        // o un calcolo per la linea stessa (ad esempio, la distanza media dei suoi vertici dal mouse).
-                        // Per ora, userò lo stile basato su p1 per il triangolo principale.
-
-                        // Triangolo superiore (quelli che puntano in alto)
-                        // Vertici: (c, r), (c+1, r), (c, r+1) o (c+1, r+1) a seconda dell'offset
+                        // Upper triangle (pointing up)
+                        // Vertices: (c, r), (c+1, r), (c, r+1) or (c+1, r+1) depending on offset
                         if (r % 2 === 0) {
                             ctx.beginPath();
                             ctx.moveTo(p1.x, p1.y);
                             ctx.lineTo(p2.x, p2.y);
-                            ctx.lineTo(p3.x, p3.y); // Questo sarà il punto in basso a sinistra (offset 0)
+                            ctx.lineTo(p3.x, p3.y); // This will be the bottom-left point (offset 0)
                             ctx.closePath();
                             ctx.strokeStyle = p1.currentStrokeStyle;
                             ctx.lineWidth = p1.currentLineWidth;
                             ctx.stroke();
                         } 
                         
-                        // Triangolo inferiore (quelli che puntano in basso)
-                        // Vertici: (c, r), (c+1, r), (c+1, r+1) o (c, r+1) a seconda dell'offset
-                        if (r % 2 !== 0) { // Alterna la direzione dei triangoli
-                             ctx.beginPath();
+                        // Lower triangle (pointing down)
+                        // Vertices: (c, r), (c+1, r), (c+1, r+1) or (c, r+1) depending on offset
+                        if (r % 2 !== 0) { // Alternate triangle direction
+                            ctx.beginPath();
                             ctx.moveTo(p1.x, p1.y);
                             ctx.lineTo(p2.x, p2.y);
-                            ctx.lineTo(p4.x, p4.y); // Questo sarà il punto in basso a destra (offset 0)
+                            ctx.lineTo(p4.x, p4.y); // This will be the bottom-right point (offset 0)
                             ctx.closePath();
                             ctx.strokeStyle = p1.currentStrokeStyle;
                             ctx.lineWidth = p1.currentLineWidth;
@@ -514,24 +567,60 @@
                 }
             }
 
-            // Loop di animazione
+            /**
+             * Animation loop function using requestAnimationFrame.
+             * @param {number} time - The current time in milliseconds.
+             */
             function animate(time) {
                 draw(time);
                 requestAnimationFrame(animate);
             }
 
-            // Event Listener per il movimento del mouse
+            // Event listener for mouse movement to update mouse coordinates
             window.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
             });
 
-            // Event Listener per il ridimensionamento della finestra
-            window.addEventListener('resize', setCanvasSize);
+            // Handle the unsupported device overlay
+            const unsupportedOverlay = document.getElementById('unsupported-device-overlay');
+            const desktopContent = document.getElementById('desktop-content');
+            const proceedButton = document.getElementById('proceed-anyway');
 
-            // Inizializza tutto all'avvio
-            setCanvasSize();
-            requestAnimationFrame(animate);
+            /**
+             * Checks the device width and displays or hides the unsupported device overlay.
+             */
+            function checkDevice() {
+                // Consider devices with max-width of 1023px (Tailwind's 'lg' breakpoint) as non-computer
+                if (window.innerWidth <= 1023) {
+                    unsupportedOverlay.style.display = 'flex'; // Show the overlay
+                    desktopContent.style.display = 'none'; // Hide desktop content
+                    // Disable scrolling on the body when the overlay is active
+                    document.body.style.overflow = 'hidden'; 
+                } else {
+                    unsupportedOverlay.style.display = 'none'; // Hide the overlay
+                    desktopContent.style.display = 'flex'; // Show desktop content
+                    document.body.style.overflow = ''; // Re-enable scrolling
+                }
+            }
+
+            // Event listener for "Vedi Comunque" (Proceed Anyway) button click
+            proceedButton.addEventListener('click', () => {
+                unsupportedOverlay.style.display = 'none'; // Hide the overlay
+                desktopContent.style.display = 'flex'; // Show desktop content
+                document.body.style.overflow = ''; // Re-enable scrolling
+            });
+
+            // Event listener for window resize to adjust canvas and device check
+            window.addEventListener('resize', () => {
+                setCanvasSize(); // Adjust canvas size
+                checkDevice(); // Re-check device type on resize
+            });
+
+            // Initialize everything when the DOM is fully loaded
+            setCanvasSize(); // Set initial canvas size
+            checkDevice(); // Perform initial device check
+            requestAnimationFrame(animate); // Start the animation loop
         });
     </script>
 </body>
