@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Cinzel for titles, Inter for body text -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Custom styles for an elegant black and gold aesthetic */
         body {
@@ -19,14 +21,23 @@
             min-height: 100vh; /* Ensures body is at least viewport height */
             position: relative; /* Necessary for positioning the canvas if not fixed */
             background-color: #0a0a0a; /* Base background color for the body */
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
         }
         
         h1, h2, h3 {
             font-family: 'Cinzel', serif; /* Elegant font for titles */
             font-weight: 700;
             color: #d4af37; /* More vibrant gold for titles */
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Slight shadow for titles */
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* Stronger shadow for titles */
         }
+
+        /* Improved Header specific styling */
+        header {
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            border-bottom: 2px solid #d4af37;
+            animation: fadeInDown 1s ease-out forwards;
+        }
+
         .sidebar {
             width: 250px;
             background-color: #1a1a1a; /* Lighter black background for the sidebar */
@@ -42,6 +53,7 @@
         }
         .sidebar:hover {
             box-shadow: 4px 0 25px rgba(212, 175, 55, 0.2); /* Golden shadow on hover */
+            border-color: #d4af37; /* Highlight border on hover */
         }
         .main-content {
             flex-grow: 1;
@@ -55,12 +67,22 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
             border: 1px solid #333;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Blocks animation */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.8s ease-out, transform 0.8s ease-out; /* Blocks animation and fade-in */
             z-index: 5; /* Ensures blocks are above the canvas */
         }
         .section-block:hover {
-            transform: translateY(-5px); /* Slight lift on hover */
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transform: translateY(-8px); /* More pronounced lift on hover */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.3); /* Deeper shadow with golden glow */
+        }
+
+        /* Scroll reveal animation styles */
+        .hidden-section {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .visible-section {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .btn-primary {
@@ -68,7 +90,7 @@
             color: #1a1a1a; /* Dark text on gold button */
             padding: 0.9rem 2.2rem;
             border-radius: 0.6rem;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             font-weight: 700; /* Bolder text */
             text-decoration: none;
@@ -77,29 +99,55 @@
             justify-content: center;
             letter-spacing: 0.05em; /* Increased spacing */
             border: none; /* Removes default border */
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.7s ease-in-out;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 0;
+        }
+        .btn-primary:hover::before {
+            transform: translate(-50%, -50%) scale(1);
         }
         .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02); /* More pronounced hover effect */
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4); /* Gold shadow */
+            transform: translateY(-5px) scale(1.03); /* More pronounced hover effect */
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.6); /* Stronger gold shadow */
             background-image: linear-gradient(to right, #f0d9a6, #d4af37); /* Invert gradient on hover */
+            color: #0a0a0a;
         }
+        .btn-primary > * { /* Ensure text and icons are above the ::before pseudo-element */
+            position: relative;
+            z-index: 1;
+        }
+
         .link-style {
             color: #f0d9a6; /* Soft gold for sidebar links */
-            transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s;
             text-decoration: none;
             font-weight: 500;
+            display: block; /* Make the whole area clickable */
         }
         .link-style:hover {
             color: #d4af37; /* More vibrant gold on hover */
             background-color: #2a2a2a; /* Light dark background on hover */
             border-radius: 0.5rem;
+            transform: translateX(5px); /* Slide effect on hover */
         }
         .discord-btn {
             background-color: #36393f; /* Dark grey for Discord button */
             color: white;
-            padding: 1.2rem 2.5rem;
+            padding: 1rem 2rem;
             border-radius: 0.75rem;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             font-weight: 700;
             display: inline-flex;
@@ -109,16 +157,20 @@
             letter-spacing: 0.05em;
         }
         .discord-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4); /* Darker shadow */
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6); /* Darker shadow */
             background-color: #2f3136; /* Even darker grey on hover */
+            color: #7289DA; /* Discord brand color */
         }
-        .discord-icon {
+        .discord-btn i { /* Styling for Font Awesome icon */
             margin-right: 0.75rem;
-            width: 28px;
-            height: 28px;
+            font-size: 1.8rem;
+            transition: color 0.3s ease-in-out;
         }
-       
+        .discord-btn:hover i {
+            color: #7289DA; /* Discord brand color on hover */
+        }
+        
         /* Styles for the collapsible section */
         details summary {
             cursor: pointer;
@@ -131,12 +183,12 @@
             background-color: #2a2a2a; /* Dark background for the summary */
             border-radius: 0.6rem;
             margin-bottom: 0.6rem;
-            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
             border: 1px solid #333;
         }
         details summary:hover {
             background-color: #3a3a3a;
-            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4); /* Enhanced gold shadow */
         }
         details summary::-webkit-details-marker {
             display: none;
@@ -166,7 +218,7 @@
             border-top: 1px solid #3a3a3a;
             border-bottom-left-radius: 0.75rem;
             border-bottom-right-radius: 0.75rem;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3); /* Deeper inset shadow */
         }
         .old-versions-grid .btn-primary {
             padding: 0.6rem 1rem;
@@ -191,7 +243,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 0.98); /* Almost opaque */
             color: #f0d9a6;
             display: flex;
             flex-direction: column;
@@ -204,9 +256,12 @@
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
         }
+        .unsupported-device-overlay p {
+            font-size: 1.25rem;
+        }
         .unsupported-device-overlay .btn-primary {
-            margin-top: 1rem;
-            padding: 0.7rem 1.8rem;
+            margin-top: 2rem;
+            padding: 0.9rem 2.2rem;
             font-size: 1.1rem;
         }
         
@@ -222,7 +277,7 @@
 
         @media (min-width: 1024px) { /* Hide overlay for desktop */
             .unsupported-device-overlay {
-                display: none;
+                display: none !important; /* Force hide the overlay */
             }
             #desktop-content {
                 display: flex; /* Show desktop content */
@@ -254,23 +309,37 @@
                 padding: 0.8rem 1.5rem;
                 font-size: 0.9rem;
             }
-            .discord-icon {
-                width: 20px;
-                height: 20px;
+            .discord-btn i {
+                font-size: 1.5rem;
             }
             h1 {
-                font-size: 3.5rem;
+                font-size: 3rem;
             }
             h2 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             .unsupported-device-overlay h2 {
                 font-size: 1.8rem; /* Reduce text size for mobile */
+            }
+            .unsupported-device-overlay p {
+                font-size: 1rem;
             }
         }
         /* Smooth scroll for anchor links */
         html {
             scroll-behavior: smooth;
+        }
+
+        /* Keyframe animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
@@ -324,8 +393,7 @@
                         </li>
                         <li class="mb-4">
                             <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-8">
-                                <!-- Discord logo image -->
-                                <img src="https://brandlogos.net/wp-content/uploads/2021/11/discord-logo.png" alt="Discord Logo" class="discord-icon">
+                                <i class="fab fa-discord"></i> <!-- Font Awesome Discord icon -->
                                 Unisciti al nostro Discord!
                             </a>
                         </li>
@@ -336,7 +404,7 @@
             <!-- Main content with sections -->
             <main class="main-content">
                 <!-- Home section / "Il Corridoio" game description -->
-                <section id="home" class="section-block">
+                <section id="home" class="section-block hidden-section">
                     <h2 class="text-4xl font-bold mb-6">Il Corridoio</h2>
                     <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
                         "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno.
@@ -349,12 +417,12 @@
                             Non perdere l'ultima e più completa esperienza di gioco. Scarica subito la versione 7.2!
                         </p>
                         <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-center text-xl px-10 py-5">
-                            Download Il Corridoio 7.2
+                            <i class="fas fa-download mr-3"></i> Download Il Corridoio 7.2
                         </a>
                     </section>
 
                     <!-- All Versions section (with collapsible older versions) -->
-                    <section id="all-versions" class="section-block">
+                    <section id="all-versions" class="section-block hidden-section">
                         <h3 class="text-2xl font-bold mb-4">Versioni Disponibili</h3>
                         
                         <details>
@@ -391,7 +459,7 @@
                 </section>
 
                 <!-- Credits section -->
-                <section id="credits" class="section-block">
+                <section id="credits" class="section-block hidden-section">
                     <h2 class="text-4xl font-bold mb-6">Crediti del Team</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
                         <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
@@ -411,7 +479,7 @@
                 </section>
 
                 <!-- "Our Mission" section -->
-                <section class="section-block text-center">
+                <section class="section-block text-center hidden-section">
                     <h2 class="text-4xl font-bold mb-6">La Nostra Missione</h2>
                     <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
                         Noi di KTS Game Studio siamo appassionati nel creare esperienze di gioco immersive e indimenticabili. Il nostro obiettivo è spingere i confini della narrazione e del gameplay, offrendo ai giocatori avventure uniche ed emozionanti.
@@ -438,13 +506,69 @@
             let width, height; // Variables for canvas dimensions
             const points = []; // Array to store points for the triangular background
             const triangleSize = 80; // Size of the triangles (side length)
-            const waveAmplitude = 10; // Amplitude of the wave effect
-            const waveSpeed = 0.005; // Speed of the wave animation
-            const mouseInfluenceRadius = 150; // Radius of mouse influence for point interaction
-            const mouseAttractionStrength = 0.05; // Strength of mouse attraction/repulsion
+            const waveAmplitude = 15; // Amplitude of the wave effect (increased)
+            const waveSpeed = 0.003; // Speed of the wave animation (adjusted for smoother feel)
+            const mouseInfluenceRadius = 200; // Radius of mouse influence for point interaction (increased)
+            const mouseAttractionStrength = 0.07; // Strength of mouse attraction/repulsion (adjusted)
+            const friction = 0.92; // Friction for points returning to original position
 
             let mouseX = -9999; // Initial mouse X coordinate (off-screen)
             let mouseY = -9999; // Initial mouse Y coordinate (off-screen)
+
+            // Particle system variables
+            const particles = [];
+            const particleCount = 100; // Number of particles
+            const particleSpeed = 0.5;
+            const particleSize = 1.5;
+            const particleColor = 'rgba(255, 223, 0, 0.7)'; // Golden color
+
+            /**
+             * Particle class for the background dust/stars effect.
+             */
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * particleSize + 0.5;
+                    this.speedX = (Math.random() - 0.5) * particleSpeed;
+                    this.speedY = (Math.random() - 0.5) * particleSpeed;
+                    this.opacity = Math.random();
+                    this.fadeSpeed = Math.random() * 0.01 + 0.005;
+                    this.direction = Math.random() > 0.5 ? 1 : -1; // For fading in/out
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    // Wrap particles around the screen
+                    if (this.x < 0 || this.x > width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > height) this.speedY *= -1;
+
+                    // Fade in and out effect
+                    this.opacity += this.fadeSpeed * this.direction;
+                    if (this.opacity > 1 || this.opacity < 0.1) {
+                        this.direction *= -1;
+                        this.fadeSpeed = Math.random() * 0.01 + 0.005; // Randomize fade speed
+                    }
+                }
+
+                draw() {
+                    ctx.fillStyle = `rgba(255, 223, 0, ${this.opacity})`; // Gold with varying opacity
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            /**
+             * Creates initial particles.
+             */
+            function initParticles() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
 
             /**
              * Sets the canvas size to match the window dimensions and reinitializes points.
@@ -463,18 +587,20 @@
             function initPoints() {
                 points.length = 0; // Clear existing points
                 // Calculate rows and columns, adding extra for better edge coverage
-                const rows = Math.ceil(height / (triangleSize * Math.sqrt(3) / 2)) + 3; 
-                const cols = Math.ceil(width / triangleSize) + 3;
+                const h = triangleSize * Math.sqrt(3) / 2; // Height of an equilateral triangle
+                const rows = Math.ceil(height / h) + 3; // Ensure full coverage vertically
+                const cols = Math.ceil(width / triangleSize) + 3; // Ensure full coverage horizontally
 
                 for (let r = 0; r < rows; r++) {
                     for (let c = 0; c < cols; c++) {
                         // Offset for hexagonal/triangular grid pattern
                         const xOffset = r % 2 === 0 ? 0 : triangleSize / 2; 
                         const x = c * triangleSize + xOffset;
-                        const y = r * (triangleSize * Math.sqrt(3) / 2);
+                        const y = r * h;
                         points.push({
                             x: x,
                             y: y,
+                            originalX: x, // Store original X for return motion
                             originalY: y, // Store original Y for wave animation reset
                             vx: 0, // Velocity for mouse interaction
                             vy: 0  // Velocity for mouse interaction
@@ -489,20 +615,22 @@
              */
             function draw(time) {
                 ctx.clearRect(0, 0, width, height); // Clear the canvas
-                ctx.fillStyle = 'rgba(10, 10, 10, 1)'; // Dark background color
+                ctx.fillStyle = '#0a0a0a'; // Dark background color
                 ctx.fillRect(0, 0, width, height); // Fill background
 
                 // Update and draw points
                 points.forEach(point => {
-                    // Wave animation effect
-                    point.y = point.originalY + Math.sin(time * waveSpeed + point.x * 0.01) * waveAmplitude;
+                    // Wave animation effect - combination of sine waves for more organic movement
+                    point.y = point.originalY + Math.sin(time * waveSpeed + point.x * 0.01) * waveAmplitude +
+                              Math.cos(time * waveSpeed * 0.7 + point.x * 0.005) * waveAmplitude * 0.5;
+                    point.x = point.originalX + Math.cos(time * waveSpeed * 1.2 + point.y * 0.01) * waveAmplitude * 0.3;
 
                     // Mouse interaction logic
                     const dx = mouseX - point.x;
                     const dy = mouseY - point.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    point.currentStrokeStyle = 'rgba(255, 255, 255, 0.08)'; // Default line color
+                    point.currentStrokeStyle = 'rgba(255, 255, 255, 0.08)'; // Default line color (very faint)
                     point.currentLineWidth = 1; // Default line width
 
                     if (distance < mouseInfluenceRadius) {
@@ -510,61 +638,89 @@
                         point.vx += force * dx / distance;
                         point.vy += force * dy / distance;
 
-                        // Make lines more visible near the mouse
-                        const alpha = 0.08 + (1 - distance / mouseInfluenceRadius) * 0.2; // Increase opacity
+                        // Make lines more visible and golden near the mouse
+                        const alpha = 0.08 + (1 - distance / mouseInfluenceRadius) * 0.25; // Increase opacity
                         point.currentStrokeStyle = `rgba(212, 175, 55, ${alpha})`; // Vibrant gold when near
                         point.currentLineWidth = 1 + (1 - distance / mouseInfluenceRadius) * 2; // Increase line width
                     } 
+                    
+                    // Return to original position slowly
+                    point.vx += (point.originalX - point.x) * 0.01;
+                    point.vy += (point.originalY - point.y) * 0.01;
 
                     // Apply velocity and friction
                     point.x += point.vx;
                     point.y += point.vy;
-                    point.vx *= 0.95; // Apply friction
-                    point.vy *= 0.95; // Apply friction
+                    point.vx *= friction; // Apply friction
+                    point.vy *= friction; // Apply friction
                 });
 
                 // Draw triangles based on the updated points
                 const h = triangleSize * Math.sqrt(3) / 2; // Height of an equilateral triangle
+                const numCols = Math.ceil(width / triangleSize) + 3;
 
                 for (let r = 0; r < Math.ceil(height / h) + 2; r++) {
-                    for (let c = 0; c < Math.ceil(width / triangleSize) + 2; c++) {
-                        const idxBase = r * (Math.ceil(width / triangleSize) + 3); // Base index for the current row
+                    for (let c = 0; c < numCols; c++) {
+                        const idxBase = r * numCols; 
                         
                         // Get the four points forming the potential triangles
                         const p1 = points[idxBase + c];
                         const p2 = points[idxBase + c + 1];
-                        const p3 = points[idxBase + c + (Math.ceil(width / triangleSize) + 3)]; // Point in the next row
-                        const p4 = points[idxBase + c + 1 + (Math.ceil(width / triangleSize) + 3)]; // Point in the next row + 1
+                        const p3 = points[idxBase + c + numCols]; // Point in the next row, same column offset
+                        const p4 = points[idxBase + c + 1 + numCols]; // Point in the next row, next column offset
 
                         if (!p1 || !p2 || !p3 || !p4) continue; // Skip if any point is undefined
 
-                        // Upper triangle (pointing up)
-                        // Vertices: (c, r), (c+1, r), (c, r+1) or (c+1, r+1) depending on offset
+                        // Determine which two triangles to draw based on row parity
                         if (r % 2 === 0) {
+                            // Triangle pointing up (top-left, top-right, bottom-left relative to grid cell)
                             ctx.beginPath();
                             ctx.moveTo(p1.x, p1.y);
                             ctx.lineTo(p2.x, p2.y);
-                            ctx.lineTo(p3.x, p3.y); // This will be the bottom-left point (offset 0)
+                            ctx.lineTo(p3.x, p3.y);
                             ctx.closePath();
                             ctx.strokeStyle = p1.currentStrokeStyle;
                             ctx.lineWidth = p1.currentLineWidth;
                             ctx.stroke();
-                        } 
-                        
-                        // Lower triangle (pointing down)
-                        // Vertices: (c, r), (c+1, r), (c+1, r+1) or (c, r+1) depending on offset
-                        if (r % 2 !== 0) { // Alternate triangle direction
+
+                            // Triangle pointing down (top-right, bottom-left, bottom-right relative to grid cell)
+                            ctx.beginPath();
+                            ctx.moveTo(p2.x, p2.y);
+                            ctx.lineTo(p3.x, p3.y);
+                            ctx.lineTo(p4.x, p4.y);
+                            ctx.closePath();
+                            ctx.strokeStyle = p2.currentStrokeStyle; // Use a neighboring point's style
+                            ctx.lineWidth = p2.currentLineWidth;
+                            ctx.stroke();
+                        } else {
+                            // Triangle pointing down (top-left, bottom-right, bottom-left relative to grid cell)
                             ctx.beginPath();
                             ctx.moveTo(p1.x, p1.y);
-                            ctx.lineTo(p2.x, p2.y);
-                            ctx.lineTo(p4.x, p4.y); // This will be the bottom-right point (offset 0)
+                            ctx.lineTo(p4.x, p4.y);
+                            ctx.lineTo(p3.x, p3.y);
                             ctx.closePath();
                             ctx.strokeStyle = p1.currentStrokeStyle;
                             ctx.lineWidth = p1.currentLineWidth;
+                            ctx.stroke();
+
+                            // Triangle pointing up (top-left, top-right, bottom-right relative to grid cell)
+                            ctx.beginPath();
+                            ctx.moveTo(p1.x, p1.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.lineTo(p4.x, p4.y);
+                            ctx.closePath();
+                            ctx.strokeStyle = p2.currentStrokeStyle; // Use a neighboring point's style
+                            ctx.lineWidth = p2.currentLineWidth;
                             ctx.stroke();
                         }
                     }
                 }
+
+                // Draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
             }
 
             /**
@@ -617,8 +773,35 @@
                 checkDevice(); // Re-check device type on resize
             });
 
+            // Intersection Observer for scroll-reveal animations
+            const sections = document.querySelectorAll('.section-block');
+            const observerOptions = {
+                root: null, // viewport
+                threshold: 0.1 // Trigger when 10% of the section is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible-section');
+                        entry.target.classList.remove('hidden-section');
+                    } else {
+                        // Optionally hide again when scrolling out, or keep visible
+                        // entry.target.classList.remove('visible-section');
+                        // entry.target.classList.add('hidden-section');
+                    }
+                });
+            }, observerOptions);
+
+            // Add hidden class to all sections initially
+            sections.forEach(section => {
+                section.classList.add('hidden-section');
+                observer.observe(section);
+            });
+
             // Initialize everything when the DOM is fully loaded
             setCanvasSize(); // Set initial canvas size
+            initParticles(); // Initialize particles
             checkDevice(); // Perform initial device check
             requestAnimationFrame(animate); // Start the animation loop
         });
