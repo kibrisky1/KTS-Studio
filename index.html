@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO: Titolo della pagina del gioco con keyword -->
-    <title>Il Corridoio - Scarica il Gioco Horror Free-to-Play di KTS Studio</title>
-    <!-- SEO: Meta descrizione per la pagina del gioco -->
-    <meta name="description" content="Entra nel terrore de Il Corridoio, il nuovo gioco horror psicologico di KTS Studio. Scarica gratis l'ultima versione e sopravvivi all'oscurità!">
+    <!-- SEO: Titolo della pagina principale con keyword -->
+    <title>KTS Game Studio - Giochi Free-to-Play | Sviluppatori Indie</title>
+    <!-- SEO: Meta descrizione per la homepage -->
+    <meta name="description" content="KTS Game Studio crea giochi free-to-play innovativi e coinvolgenti. Scopri Il Corridoio, il nostro ultimo gioco horror, e preparati per nuove avventure!">
     
     <!-- Tailwind CSS CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,26 +15,27 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Stili Custom (duplicati per consistenza tra le pagine) */
+        /* Stili Custom per un'estetica elegante in nero e oro */
         body {
             font-family: 'Inter', sans-serif;
-            color: #f0d9a6;
+            color: #f0d9a6; /* Oro tenue per il testo generale */
             margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            position: relative;
-            background-color: #0a0a0a;
-            overflow-x: hidden;
+            min-height: 100vh; /* Assicura che il corpo sia alto almeno quanto il viewport */
+            position: relative; /* Necessario per posizionare il canvas se non fisso */
+            background-color: #0a0a0a; /* Colore di sfondo di base per il corpo */
+            overflow-x: hidden; /* Previene lo scroll orizzontale a causa delle animazioni */
         }
         
         h1, h2, h3 {
-            font-family: 'Cinzel', serif;
+            font-family: 'Cinzel', serif; /* Font elegante per i titoli */
             font-weight: 700;
-            color: #d4af37;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            color: #d4af37; /* Oro più vibrante per i titoli */
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5); /* Ombra più forte per i titoli */
         }
 
+        /* Stili specifici per l'Header migliorato */
         header {
             background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
             border-bottom: 2px solid #d4af37;
@@ -43,25 +44,25 @@
 
         .sidebar {
             width: 250px;
-            background-color: #1a1a1a;
+            background-color: #1a1a1a; /* Sfondo nero più chiaro per la sidebar */
             padding: 1.5rem;
             box-shadow: 4px 0 15px rgba(0,0,0,0.4);
             border-radius: 0.75rem;
             position: sticky;
             top: 2rem;
             height: fit-content;
-            border: 1px solid #333;
-            transition: all 0.3s ease-in-out;
-            z-index: 10;
+            border: 1px solid #333; /* Bordo sottile */
+            transition: all 0.3s ease-in-out; /* Animazione sidebar */
+            z-index: 10; /* Assicura che la sidebar sia sopra il canvas */
         }
         .sidebar:hover {
-            box-shadow: 4px 0 25px rgba(212, 175, 55, 0.2);
-            border-color: #d4af37;
+            box-shadow: 4px 0 25px rgba(212, 175, 55, 0.2); /* Ombra dorata all'hover */
+            border-color: #d4af37; /* Bordo evidenziato all'hover */
         }
         .main-content {
             flex-grow: 1;
             padding: 1.5rem;
-            z-index: 5;
+            z-index: 5; /* Assicura che il contenuto sia sopra il canvas */
         }
         .section-block {
             background-color: #1a1a1a;
@@ -70,14 +71,15 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.3);
             margin-bottom: 2rem;
             border: 1px solid #333;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.8s ease-out, transform 0.8s ease-out;
-            z-index: 5;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, opacity 0.8s ease-out, transform 0.8s ease-out; /* Animazione blocchi e fade-in */
+            z-index: 5; /* Assicura che i blocchi siano sopra il canvas */
         }
         .section-block:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-8px); /* Sollevamento più pronunciato all'hover */
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.3); /* Ombra più profonda con bagliore dorato */
         }
 
+        /* Stili per l'animazione di comparsa allo scroll */
         .hidden-section {
             opacity: 0;
             transform: translateY(20px);
@@ -88,19 +90,19 @@
         }
 
         .btn-primary {
-            background-image: linear-gradient(to right, #d4af37, #f0d9a6);
-            color: #1a1a1a;
+            background-image: linear-gradient(to right, #d4af37, #f0d9a6); /* Gradiente oro */
+            color: #1a1a1a; /* Testo scuro su bottone oro */
             padding: 0.9rem 2.2rem;
             border-radius: 0.6rem;
             transition: all 0.4s ease-in-out;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            font-weight: 700;
+            font-weight: 700; /* Testo più grassetto */
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            letter-spacing: 0.05em;
-            border: none;
+            letter-spacing: 0.05em; /* Spaziatura aumentata */
+            border: none; /* Rimuove il bordo predefinito */
             position: relative;
             overflow: hidden;
         }
@@ -121,31 +123,31 @@
             transform: translate(-50%, -50%) scale(1);
         }
         .btn-primary:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.6);
-            background-image: linear-gradient(to right, #f0d9a6, #d4af37);
+            transform: translateY(-5px) scale(1.03); /* Effetto hover più pronunciato */
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.6); /* Ombra dorata più forte */
+            background-image: linear-gradient(to right, #f0d9a6, #d4af37); /* Inverte il gradiente all'hover */
             color: #0a0a0a;
         }
-        .btn-primary > * {
+        .btn-primary > * { /* Assicura che testo e icone siano sopra l'elemento pseudo ::before */
             position: relative;
             z-index: 1;
         }
 
         .link-style {
-            color: #f0d9a6;
+            color: #f0d9a6; /* Oro tenue per i link della sidebar */
             transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s;
             text-decoration: none;
             font-weight: 500;
-            display: block;
+            display: block; /* Rende l'intera area cliccabile */
         }
         .link-style:hover {
-            color: #d4af37;
-            background-color: #2a2a2a;
+            color: #d4af37; /* Oro più vibrante all'hover */
+            background-color: #2a2a2a; /* Sfondo scuro chiaro all'hover */
             border-radius: 0.5rem;
-            transform: translateX(5px);
+            transform: translateX(5px); /* Effetto scorrimento all'hover */
         }
         .discord-btn {
-            background-color: #36393f;
+            background-color: #36393f; /* Grigio scuro per il bottone Discord */
             color: white;
             padding: 1rem 2rem;
             border-radius: 0.75rem;
@@ -160,28 +162,29 @@
         }
         .discord-btn:hover {
             transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
-            background-color: #2f3136;
-            color: #7289DA;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6); /* Ombra più scura */
+            background-color: #2f3136; /* Grigio ancora più scuro all'hover */
+            color: #7289DA; /* Colore brand Discord */
         }
-        .discord-btn i {
+        .discord-btn i { /* Stili per l'icona Font Awesome */
             margin-right: 0.75rem;
             font-size: 1.8rem;
             transition: color 0.3s ease-in-out;
         }
         .discord-btn:hover i {
-            color: #7289DA;
+            color: #7289DA; /* Colore brand Discord all'hover */
         }
         
+        /* Stili per la sezione a scomparsa */
         details summary {
             cursor: pointer;
             list-style: none;
             display: flex;
             align-items: center;
             font-weight: 600;
-            color: #d4af37;
+            color: #d4af37; /* Oro vibrante */
             padding: 0.8rem 1.2rem;
-            background-color: #2a2a2a;
+            background-color: #2a2a2a; /* Sfondo scuro per il sommario */
             border-radius: 0.6rem;
             margin-bottom: 0.6rem;
             transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -189,20 +192,20 @@
         }
         details summary:hover {
             background-color: #3a3a3a;
-            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4); /* Ombra dorata migliorata */
         }
         details summary::-webkit-details-marker {
             display: none;
         }
         details summary::before {
-            content: '\25B6';
+            content: '\25B6'; /* Triangolo per indicare l'espansione */
             font-size: 1.2rem;
             margin-right: 0.75rem;
             transition: transform 0.2s;
             color: #d4af37;
         }
         details[open] summary::before {
-            content: '\25BC';
+            content: '\25BC'; /* Triangolo verso il basso quando aperto */
             transform: rotate(0deg);
         }
         details[open] summary {
@@ -215,41 +218,43 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
             padding: 1.5rem;
-            background-color: #2a2a2a;
+            background-color: #2a2a2a; /* Sfondo più scuro per il contenuto a scomparsa */
             border-top: 1px solid #3a3a3a;
             border-bottom-left-radius: 0.75rem;
             border-bottom-right-radius: 0.75rem;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3); /* Ombra interna più profonda */
         }
         .old-versions-grid .btn-primary {
             padding: 0.6rem 1rem;
             font-size: 0.9rem;
         }
 
+        /* Canvas per lo sfondo dinamico */
         #dynamic-background {
-            position: fixed;
+            position: fixed; /* Mantiene il canvas fisso sullo sfondo */
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
-            background-color: #0a0a0a;
+            z-index: -1; /* Posiziona dietro il contenuto */
+            background-color: #0a0a0a; /* Colore di sfondo di base per il canvas */
         }
 
+        /* Overlay per dispositivi non desktop */
         .unsupported-device-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.98);
+            background-color: rgba(0, 0, 0, 0.98); /* Quasi opaco */
             color: #f0d9a6;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            z-index: 100;
+            z-index: 100; /* Assicura che sia sopra tutto */
         }
         .unsupported-device-overlay h2 {
             font-size: 2.5rem;
@@ -264,21 +269,22 @@
             font-size: 1.1rem;
         }
         
-        @media (max-width: 1023px) {
+        /* Regolazioni Responsive */
+        @media (max-width: 1023px) { /* Applica overlay per tablet e dispositivi mobili */
             #desktop-content {
                 display: none;
             }
             .unsupported-device-overlay {
-                display: flex;
+                display: flex; /* Mostra l'overlay */
             }
         }
 
-        @media (min-width: 1024px) {
+        @media (min-width: 1024px) { /* Nasconde overlay per desktop */
             .unsupported-device-overlay {
-                display: none !important;
+                display: none !important; /* Forza la scomparsa dell'overlay */
             }
             #desktop-content {
-                display: flex;
+                display: flex; /* Mostra il contenuto desktop */
             }
             .container-layout {
                 flex-direction: row;
@@ -289,6 +295,7 @@
             }
         }
 
+        /* Regolazioni per layout a colonna su schermi più piccoli */
         @media (max-width: 768px) {
             .container-layout {
                 flex-direction: column;
@@ -316,16 +323,18 @@
                 font-size: 2rem;
             }
             .unsupported-device-overlay h2 {
-                font-size: 1.8rem;
+                font-size: 1.8rem; /* Riduci la dimensione del testo per mobile */
             }
             .unsupported-device-overlay p {
                 font-size: 1rem;
             }
         }
+        /* Scorrimento fluido per i link ancora */
         html {
             scroll-behavior: smooth;
         }
 
+        /* Animazioni Keyframe */
         @keyframes fadeInDown {
             from {
                 opacity: 0;
@@ -354,9 +363,9 @@
         <!-- Sezione Header -->
         <header class="bg-gray-900 p-8 shadow-2xl rounded-b-xl mb-8 border-b-2 border-yellow-700 relative z-10">
             <div class="container mx-auto text-center">
-                <!-- SEO: H1 per il titolo della pagina del gioco -->
+                <!-- SEO: H1 per il titolo principale della homepage -->
                 <h1 class="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500 mb-3 tracking-wide">KTS Game Studio</h1>
-                <p class="text-2xl text-gray-400 font-light">Presenta: Il Corridoio</p>
+                <p class="text-2xl text-gray-400 font-light">Creiamo mondi indimenticabili</p>
             </div>
         </header>
 
@@ -368,29 +377,25 @@
                 <nav>
                     <ul>
                         <li class="mb-4">
-                            <!-- Link per tornare alla Home -->
-                            <a href="index.html" class="block p-3 rounded-md btn-primary text-center">
-                                <i class="fas fa-home mr-2"></i> Torna alla Home
+                            <a href="#home" class="block p-3 rounded-md link-style">
+                                Home
                             </a>
                         </li>
                         <li class="mb-4">
-                            <a href="#il-corridoio-info" class="block p-3 rounded-md link-style">
-                                Descrizione Gioco
+                            <!-- Link alla pagina dedicata de Il Corridoio -->
+                            <a href="il-corridoio.html" class="block p-3 rounded-md link-style">
+                                Il Corridoio
                             </a>
                         </li>
                         <li class="mb-4">
-                            <a href="#latest-version" class="block p-3 rounded-md link-style">
-                                Scarica Ultima Versione
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#all-versions" class="block p-3 rounded-md link-style">
-                                Tutte le Versioni
+                            <!-- Link alla sezione Crediti della homepage -->
+                            <a href="#credits" class="block p-3 rounded-md link-style">
+                                Crediti
                             </a>
                         </li>
                         <li class="mb-4">
                             <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-8">
-                                <i class="fab fa-discord"></i>
+                                <i class="fab fa-discord"></i> <!-- Icona Font Awesome Discord -->
                                 Unisciti al nostro Discord!
                             </a>
                         </li>
@@ -400,68 +405,55 @@
 
             <!-- Contenuto Principale con Sezioni -->
             <main class="main-content">
-                <!-- Sezione Descrizione de "Il Corridoio" -->
-                <section id="il-corridoio-info" class="section-block hidden-section">
-                    <!-- SEO: H2 per il titolo del gioco -->
-                    <h2 class="text-4xl font-bold mb-6">Il Corridoio: L'Incubo Ti Aspetta</h2>
-                    <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
-                        "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno in questo <strong>gioco horror psicologico free-to-play</strong> di KTS Studio.
+                <!-- Sezione Eroica della Homepage -->
+                <section id="home" class="section-block hidden-section text-center p-10 bg-gradient-to-br from-gray-900 to-gray-800 border-yellow-700 border-2">
+                    <!-- SEO: H2 per la sezione principale della homepage -->
+                    <h2 class="text-5xl font-bold mb-6 text-yellow-400 leading-tight">
+                        Benvenuti nel Mondo di KTS Game Studio
+                    </h2>
+                    <p class="text-xl text-f0d9a6 mb-8 max-w-3xl mx-auto">
+                        Siamo un team di <strong>sviluppatori indie</strong> appassionati, dedicati a creare esperienze di <strong>gioco free-to-play</strong> innovative e immersive per tutti. La nostra missione è trasformare idee audaci in mondi digitali indimenticabili.
                     </p>
                     <div class="mb-10">
-                        <img src="https://placehold.co/800x450/1a1a1a/f0d9a6?text=Screenshot+Gameplay+Il+Corridoio" alt="Screenshot di gameplay da Il Corridoio, gioco horror gratis" class="rounded-lg shadow-lg mx-auto w-full max-w-2xl border border-gray-700">
+                        <img src="https://placehold.co/800x450/1a1a1a/d4af37?text=Immagine+di+Presentazione+Studio" alt="Immagine di presentazione KTS Game Studio" class="rounded-lg shadow-lg mx-auto w-full max-w-2xl border border-yellow-700">
                     </div>
-                    <p class="text-f0d9a6 text-lg leading-relaxed">
-                        Immergiti in un'atmosfera tesa e ricca di colpi di scena. Le tue decisioni influenzeranno il tuo percorso, e ogni porta potrebbe nascondere la tua fine o l'inizio di una fuga disperata. <strong>Il Corridoio</strong> è stato sviluppato per offrire un'esperienza di terrore accessibile a tutti, completamente gratuita.
-                    </p>
-                </section>
-
-                <!-- Sezione Ultima Versione -->
-                <section id="latest-version" class="bg-gray-800 p-8 rounded-lg shadow-xl mb-8 text-center border-2 border-yellow-700 hidden-section">
-                    <!-- SEO: H3 per il download dell'ultima versione -->
-                    <h3 class="text-3xl font-bold text-yellow-500 mb-5 tracking-wide">Installa la Versione più Recente!</h3>
-                    <p class="text-f0d9a6 text-lg mb-8">
-                        Non perdere l'ultima e più completa esperienza di gioco de "Il Corridoio". Scarica subito la versione 7.2, ottimizzata per un terrore senza precedenti!
-                    </p>
-                    <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-center text-xl px-10 py-5">
-                        <i class="fas fa-download mr-3"></i> Download Il Corridoio 7.2
+                    <!-- SEO: CTA per scoprire il gioco con keyword -->
+                    <a href="il-corridoio.html" class="btn-primary inline-flex items-center justify-center text-2xl px-12 py-6 animate-pulse-slow">
+                        <i class="fas fa-gamepad mr-4"></i> Scopri Il Corridoio
                     </a>
                 </section>
 
-                <!-- Sezione Tutte le Versioni (con versioni precedenti a scomparsa) -->
-                <section id="all-versions" class="section-block hidden-section">
-                    <!-- SEO: H3 per le versioni disponibili -->
-                    <h3 class="text-2xl font-bold mb-4">Versioni Disponibili</h3>
-                    
-                    <details>
-                        <summary>Versioni Più Vecchie</summary>
-                        <div class="old-versions-grid">
-                            <!-- Link MediaFire per le versioni precedenti -->
-                            <a href="https://www.mediafire.com/file/bxezytt5oheaogw/Il_Corridoio_Beta_1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 1
-                            </a>
-                            <a href="https://www.mediafire.com/file/zk960n5i00a88de/Il_Corridoio_Beta_2.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 2
-                            </a>
-                            <a href="https://www.mediafire.com/file/6ducg7prxmffvog/Il_corridoio_beta_3.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 3
-                            </a>
-                            <a href="https://www.mediafire.com/file/h5pdxfb3cvqlh31/Il_Corridoio_Beta_4.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 4
-                            </a>
-                            <a href="https://www.mediafire.com/file/431hw01lvaqz0zl/Il_Corridoio_Beta_5.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 5
-                            </a>
-                            <a href="https://www.mediafire.com/file/wky7z8k93zw0udn/Il_Corridoio_Beta_6.1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 6.1
-                            </a>
-                            <a href="https://www.mediafire.com/file/d8zrc6ny4ohbojl/Il_Corridoio_Beta_6.2.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 6.2
-                            </a>
-                            <a href="https://www.mediafire.com/file/jkiecycgq5uqebd/Il_Corridoio_Beta_7.1.zip/file" target="_blank" class="btn-primary">
-                                Download Beta 7.1
-                            </a>
+                <!-- Sezione "La Nostra Missione" -->
+                <section class="section-block text-center hidden-section">
+                    <!-- SEO: H2 per la sezione della missione -->
+                    <h2 class="text-4xl font-bold mb-6">La Nostra Missione</h2>
+                    <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
+                        Noi di KTS Game Studio siamo appassionati nel creare esperienze di gioco immersive e indimenticabili. Il nostro obiettivo è spingere i confini della narrazione e del gameplay, offrendo ai giocatori avventure uniche ed emozionanti.
+                    </p>
+                    <p class="text-f0d9a6 text-lg leading-relaxed">
+                        Rimani aggiornato sulle nostre prossime uscite seguendoci sul nostro server Discord!
+                    </p>
+                </section>
+
+                <!-- Sezione Crediti del Team -->
+                <section id="credits" class="section-block hidden-section">
+                    <!-- SEO: H2 per la sezione crediti -->
+                    <h2 class="text-4xl font-bold mb-6">Crediti del Team</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">Kibrisky</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Admin, Editor Video, Tester, Sito.</p>
                         </div>
-                    </details>
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">tasso_violatw</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Capo, Developer.</p>
+                        </div>
+                        <div class="bg-gray-800 p-7 rounded-lg shadow-xl border border-gray-700">
+                            <h3 class="text-3xl font-bold text-yellow-500 mb-3">samux496</h3>
+                            <p class="text-f0d9a6"><strong>Ruoli:</strong> Idee, Tester.</p>
+                        </div>
+                        <!-- Aggiungi altri crediti se necessario -->
+                    </div>
                 </section>
             </main>
         </div>
@@ -473,10 +465,6 @@
     </div>
 
     <script>
-        // Lo script del background dinamico e dell'overlay è lo stesso per entrambe le pagine.
-        // È stato incluso qui per rendere la pagina di Il Corridoio indipendente e funzionante
-        // con gli stessi effetti visivi.
-
         document.addEventListener('DOMContentLoaded', () => {
             // Ottieni l'elemento canvas e il suo contesto di rendering 2D
             const canvas = document.getElementById('dynamic-background');
