@@ -78,6 +78,7 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.6), 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
+        /* Stili per l'animazione di comparsa allo scroll */
         .hidden-section {
             opacity: 0;
             transform: translateY(20px);
@@ -136,7 +137,11 @@
             transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, transform 0.2s;
             text-decoration: none;
             font-weight: 500;
-            display: block;
+            display: flex; /* Changed to flex to align icon and text */
+            align-items: center; /* Center items vertically */
+            padding: 0.8rem 1.2rem; /* Added padding to make it feel like a button */
+            border-radius: 0.5rem; /* Rounded corners */
+            margin-bottom: 0.5rem; /* Space between links */
         }
         .link-style:hover {
             color: #d4af37;
@@ -144,6 +149,12 @@
             border-radius: 0.5rem;
             transform: translateX(5px);
         }
+        .link-style i { /* Style for icons inside link-style */
+            margin-right: 0.75rem;
+            font-size: 1.2rem;
+            color: #d4af37; /* Icon color */
+        }
+
         .discord-btn {
             background-color: #36393f;
             color: white;
@@ -373,23 +384,23 @@
                                 <i class="fas fa-home mr-2"></i> Torna alla Home
                             </a>
                         </li>
-                        <li class="mb-4">
-                            <a href="#il-corridoio-info" class="block p-3 rounded-md link-style">
-                                Descrizione Gioco
+                        <li class="mb-2"> <!-- Reduced margin-bottom slightly to group links -->
+                            <a href="#il-corridoio-info" class="link-style">
+                                <i class="fas fa-info-circle"></i> Descrizione Gioco
+                            </a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="#latest-version" class="link-style">
+                                <i class="fas fa-download"></i> Scarica Ultima Versione
+                            </a>
+                        </li>
+                        <li class="mb-4"> <!-- Increased margin-bottom before Discord button -->
+                            <a href="#all-versions" class="link-style">
+                                <i class="fas fa-history"></i> Tutte le Versioni
                             </a>
                         </li>
                         <li class="mb-4">
-                            <a href="#latest-version" class="block p-3 rounded-md link-style">
-                                Scarica Ultima Versione
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="#all-versions" class="block p-3 rounded-md link-style">
-                                Tutte le Versioni
-                            </a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-8">
+                            <a href="https://discord.gg/FvcdN8YNsx" target="_blank" class="block p-3 rounded-md discord-btn mt-4"> <!-- Adjusted margin-top -->
                                 <i class="fab fa-discord"></i>
                                 Unisciti al nostro Discord!
                             </a>
@@ -400,15 +411,15 @@
 
             <!-- Contenuto Principale con Sezioni -->
             <main class="main-content">
-                <!-- Sezione Descrizione de "Il Corridoio" -->
-                <section id="il-corridoio-info" class="section-block hidden-section">
+                <!-- Sezione Descrizione de "Il Corridoio" - SEMPRE VISIBILE -->
+                <section id="il-corridoio-info" class="section-block"> 
                     <!-- SEO: H2 per il titolo del gioco -->
                     <h2 class="text-4xl font-bold mb-6">Il Corridoio: L'Incubo Ti Aspetta</h2>
                     <p class="text-f0d9a6 text-lg leading-relaxed mb-8">
                         "Il Corridoio" è un'esperienza inquietante che ti trascinerà in un incubo claustrofobico. Naviga attraverso corridoi bui e labirintici, dove ogni ombra nasconde un segreto e ogni suono ti fa raggelare il sangue. Riuscirai a trovare la via d'uscita o sarai perso per sempre nell'oscurità? Preparati a una sfida di nervi e ingegno in questo <strong>gioco horror psicologico free-to-play</strong> di KTS Studio.
                     </p>
                     <div class="mb-10">
-                        <!-- Immagine aggiornata per la pagina del gioco -->
+                        <!-- Image of Gameplay Il Corridoio -->
                         <img src="https://cdn.discordapp.com/attachments/1384811235970650142/1385546240703336479/image.png?ex=685bbbfd&is=685a6a7d&hm=8706a52ae4f1d08b840b0275ea13bd0221cdcc0ccb6e6931e52f443cdfcc2088&" alt="Screenshot di gameplay da Il Corridoio, gioco horror gratis" class="rounded-lg shadow-lg mx-auto w-full max-w-2xl border border-gray-700">
                     </div>
                     <p class="text-f0d9a6 text-lg leading-relaxed">
@@ -416,15 +427,16 @@
                     </p>
                 </section>
 
-                <!-- Sezione Ultima Versione -->
-                <section id="latest-version" class="bg-gray-800 p-8 rounded-lg shadow-xl mb-8 text-center border-2 border-yellow-700 hidden-section">
+                <!-- Sezione Ultima Versione - ORA SEMPRE VISIBILE -->
+                <section id="latest-version" class="section-block">
                     <!-- SEO: H3 per il download dell'ultima versione -->
                     <h3 class="text-3xl font-bold text-yellow-500 mb-5 tracking-wide">Installa la Versione più Recente!</h3>
-                    <p class="text-f0d9a6 text-lg mb-8">
-                        Non perdere l'ultima e più completa esperienza di gioco de "Il Corridoio". Scarica subito la versione 7.2, ottimizzata per un terrore senza precedenti!
+                    <p class="text-f0d9a6 text-xl font-medium mb-8">
+                        Non perdere l'ultima e più completa esperienza di gioco de "Il Corridoio". <strong>Scarica subito la versione 7.2</strong>, ottimizzata per un terrore senza precedenti!
                     </p>
-                    <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-center text-xl px-10 py-5">
-                        <i class="fas fa-download mr-3"></i> Download Il Corridoio 7.2
+                    <a href="https://www.mediafire.com/file/k90e5almyth8r8o/Il_corridoio_7.2.zip/file" target="_blank" class="btn-primary inline-flex items-center justify-content-center text-xl px-10 py-5">
+                        <!-- Image of Download ZIP Icon -->
+                        <img src="https://static.mediafire.com/images/filetype/download/zip.jpg" alt="Icona Download ZIP Il Corridoio" class="w-6 h-6 mr-3"> Scarica l'ultima versione de Il Corridoio
                     </a>
                 </section>
 
@@ -591,7 +603,7 @@
 
             /**
              * Disegna lo sfondo dinamico con triangoli animati e interazione del mouse.
-             * @param {number} time - Il tempo corrente in millisecondi, passato da requestAnimationFrame.
+             * @param {number} time - Il tempo corrente in millisecondi.
              */
             function draw(time) {
                 ctx.clearRect(0, 0, width, height); // Cancella il canvas
@@ -775,7 +787,10 @@
 
             // Aggiungi la classe hidden a tutte le sezioni inizialmente
             sections.forEach(section => {
-                section.classList.add('hidden-section');
+                // Modifica qui: le sezioni con id 'il-corridoio-info' e 'latest-version' NON ricevono la classe 'hidden-section' iniziale
+                if (section.id !== 'il-corridoio-info' && section.id !== 'latest-version') {
+                    section.classList.add('hidden-section');
+                }
                 observer.observe(section);
             });
 
